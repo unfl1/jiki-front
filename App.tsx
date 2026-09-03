@@ -13,9 +13,10 @@ import {
 } from 'react-native';
 
 import { login, signup } from './src/api/auth';
-import { API_BASE_URL } from './src/api/config';
 import { ApiError } from './src/api/client';
+import { API_BASE_URL } from './src/api/config';
 import { clearSession, getSession, saveSession, Session } from './src/auth/tokenStorage';
+import { MainScreen } from './src/screens/MainScreen';
 
 export default function App() {
   const [session, setSession] = useState<Session | null>(null);
@@ -67,7 +68,7 @@ export default function App() {
   }
 
   if (session) {
-    return <HomeScreen nickname={session.nickname} onLogout={handleLogout} />;
+    return <MainScreen nickname={session.nickname} onLogout={handleLogout} />;
   }
 
   if (screen === 'signup') {
@@ -288,21 +289,6 @@ function SignupScreen({
   );
 }
 
-function HomeScreen({ nickname, onLogout }: { nickname: string; onLogout: () => void }) {
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar style="dark" />
-      <View style={styles.homeContainer}>
-        <Text style={styles.homeTitle}>{nickname}님, 환영합니다.</Text>
-        <Text style={styles.homeDescription}>로그인과 JWT 저장이 연결되었습니다.</Text>
-        <Pressable accessibilityRole="button" onPress={onLogout} style={styles.logoutButton}>
-          <Text style={styles.logoutButtonText}>로그아웃</Text>
-        </Pressable>
-      </View>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
@@ -398,33 +384,5 @@ const styles = StyleSheet.create({
     color: '#0f172a',
     fontSize: 30,
     fontWeight: '800',
-  },
-  homeContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  homeTitle: {
-    color: '#0f172a',
-    fontSize: 24,
-    fontWeight: '700',
-  },
-  homeDescription: {
-    color: '#64748b',
-    fontSize: 16,
-    marginTop: 12,
-  },
-  logoutButton: {
-    borderWidth: 1,
-    borderColor: '#cbd5e1',
-    borderRadius: 10,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    marginTop: 32,
-  },
-  logoutButtonText: {
-    color: '#334155',
-    fontWeight: '600',
   },
 });
