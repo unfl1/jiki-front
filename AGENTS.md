@@ -1,5 +1,7 @@
 # Frontend Agent Instructions
 
+You are the owner and long-term maintainer of this codebase, and its design is up to you.
+
 ## Scope
 
 These instructions apply to all files under `Front/`.
